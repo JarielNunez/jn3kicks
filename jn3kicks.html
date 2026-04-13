@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JN3 KICKS — Beneficio del Mes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red: #C0201E;
+      --black: #111111;
+      --white: #FFFFFF;
+      --gray: #f4f4f4;
+      --gray2: #e0e0e0;
+      --text-muted: #888;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--black);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 0 60px 0;
+      overflow-x: hidden;
+    }
+
+    /* TOP BAR */
+    .topbar {
+      width: 100%;
+      background: var(--black);
+      color: var(--white);
+      text-align: center;
+      padding: 10px 20px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeDown 0.6s ease forwards;
+    }
+
+    /* HEADER */
+    header {
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 24px 0;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.2s forwards;
+    }
+
+    .nfc-icon {
+      font-size: 28px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      letter-spacing: -2px;
+    }
+
+    .logo-text {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 52px;
+      letter-spacing: 0.04em;
+      line-height: 1;
+      color: var(--black);
+    }
+
+    .logo-text span {
+      color: var(--red);
+    }
+
+    .logo-sub {
+      font-size: 11px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    /* DIVIDER */
+    .divider {
+      width: 40px;
+      height: 2px;
+      background: var(--red);
+      margin: 32px auto;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.4s forwards;
+    }
+
+    /* BENEFICIO CARD */
+    .benefit-card {
+      width: calc(100% - 48px);
+      max-width: 420px;
+      background: var(--gray);
+      border-radius: 4px;
+      padding: 36px 28px;
+      text-align: center;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.5s forwards;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .benefit-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--red);
+    }
+
+    .benefit-label {
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .benefit-month {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.25em;
+      color: var(--red);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .benefit-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 38px;
+      line-height: 1.05;
+      color: var(--black);
+      margin-bottom: 6px;
+    }
+
+    .benefit-amount {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 72px;
+      color: var(--red);
+      line-height: 1;
+      margin: 12px 0 4px;
+      letter-spacing: -1px;
+    }
+
+    .benefit-currency {
+      font-size: 13px;
+      color: var(--text-muted);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .benefit-desc {
+      margin-top: 20px;
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    .benefit-desc strong {
+      color: var(--black);
+      font-weight: 600;
+    }
+
+    /* BADGE */
+    .badge {
+      display: inline-block;
+      background: var(--black);
+      color: var(--white);
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 2px;
+      margin-top: 20px;
+    }
+
+    /* CÓMO USAR */
+    .how-section {
+      width: calc(100% - 48px);
+      max-width: 420px;
+      margin-top: 32px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.7s forwards;
+    }
+
+    .how-title {
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 16px;
+      background: var(--gray);
+      border-radius: 4px;
+    }
+
+    .step-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      color: var(--red);
+      line-height: 1;
+      min-width: 20px;
+    }
+
+    .step-text {
+      font-size: 13px;
+      color: var(--black);
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    .step-text strong {
+      font-weight: 600;
+    }
+
+    /* CONDICIONES */
+    .conditions {
+      width: calc(100% - 48px);
+      max-width: 420px;
+      margin-top: 32px;
+      padding: 16px;
+      border: 1px solid var(--gray2);
+      border-radius: 4px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.9s forwards;
+    }
+
+    .conditions-title {
+      font-size: 9px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .conditions ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .conditions ul li {
+      font-size: 12px;
+      color: var(--text-muted);
+      padding-left: 14px;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    .conditions ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--red);
+      font-size: 10px;
+    }
+
+    /* FOOTER */
+    footer {
+      width: calc(100% - 48px);
+      max-width: 420px;
+      margin-top: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 1s forwards;
+    }
+
+    .footer-brand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      color: var(--black);
+      letter-spacing: 0.05em;
+    }
+
+    .footer-brand span { color: var(--red); }
+
+    .footer-ig {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .footer-ig svg {
+      width: 15px;
+      height: 15px;
+      fill: var(--black);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">Acceso exclusivo para clientes JN3 KICKS</div>
+
+  <header>
+    <div class="nfc-icon">))</div>
+    <div class="logo-text">JN<span>3</span></div>
+    <div class="logo-sub">Kicks</div>
+  </header>
+
+  <div class="divider"></div>
+
+  <div class="benefit-card">
+    <div class="benefit-label">Beneficio del mes</div>
+    <div class="benefit-month">Abril 2026</div>
+    <div class="benefit-title">Descuento en<br>todos los Nike</div>
+    <div class="benefit-amount">RD$500</div>
+    <div class="benefit-currency">Pesos dominicanos · en cualquier Nike disponible</div>
+    <p class="benefit-desc">
+      Este mes, tu tarjeta te da <strong>RD$500 de descuento</strong> en cualquier par de tenis Nike de nuestro inventario disponible. Sin mínimo de compra.
+    </p>
+    <div class="badge">Solo clientes con tarjeta NFC</div>
+  </div>
+
+  <div class="how-section">
+    <div class="how-title">Cómo usar tu beneficio</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">Muestra tu tarjeta NFC al momento de tu compra</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">Verificamos tu <strong>número de cliente</strong> en nuestro sistema</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">El descuento se aplica automáticamente. <strong>Así de simple.</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="conditions">
+    <div class="conditions-title">Condiciones</div>
+    <ul>
+      <li>Válido una sola vez por mes por cliente</li>
+      <li>Aplica únicamente en tenis Nike disponibles</li>
+      <li>No acumulable con otras promociones</li>
+      <li>Exclusivo para portadores de tarjeta JN3 KICKS</li>
+    </ul>
+  </div>
+
+  <footer>
+    <div class="footer-brand">JN<span>3</span> KICKS</div>
+    <a class="footer-ig" href="https://instagram.com/jn3kicks" target="_blank">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+      </svg>
+      @JN3KICKS
+    </a>
+  </footer>
+
+</body>
+</html>
